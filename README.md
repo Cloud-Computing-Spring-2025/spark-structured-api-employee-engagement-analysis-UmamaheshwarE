@@ -249,3 +249,15 @@ A comparative analysis showing average Engagement Levels across Job Titles, high
 | Support     | 2.8                |
 
 ---
+
+
+### Tasks(common-changes)
+### changes to be done in the code
+  ####  you have to change the input path file and output path file  in the main function
+    fix them with the local paths 
+    fix the output path 
+    then you have chaneg the file path in the load function
+    write the remaining code part as metioned in the comments and you are good to go.
+    
+
+
