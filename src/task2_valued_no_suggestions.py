@@ -38,14 +38,27 @@ def identify_valued_no_suggestions(df):
     Returns:
         tuple: Number of such employees and their proportion.
     """
-    # TODO: Implement Task 2
-    # Steps:
-    # 1. Identify employees with SatisfactionRating >= 4.
-    # 2. Among these, filter those with ProvidedSuggestions == False.
-    # 3. Calculate the number and proportion of these employees.
-    # 4. Return the results.
+    if df is None:
+        print("DataFrame is empty or not loaded properly.")
+        return 0, 0.0
 
-    pass  # Remove this line after implementing the function
+    # 1. Identify employees with SatisfactionRating >= 4.
+    valued_employees = df.filter(col("SatisfactionRating") >= 4)
+    
+    # 2. Among these, filter those with ProvidedSuggestions == False.
+    valued_no_suggestions = valued_employees.filter(col("ProvidedSuggestions") == False)
+    
+    # 3. Calculate the number and proportion of these employees.
+    total_valued = valued_employees.count()
+    number_valued_no_suggestions = valued_no_suggestions.count()
+    
+    if total_valued > 0:
+        proportion = (number_valued_no_suggestions / total_valued) * 100
+    else:
+        proportion = 0.0
+    
+    # 4. Return the results.
+    return number_valued_no_suggestions, proportion
 
 def write_output(number, proportion, output_path):
     """
@@ -59,9 +72,13 @@ def write_output(number, proportion, output_path):
     Returns:
         None
     """
-    with open(output_path, 'w') as f:
-        f.write(f"Number of Employees Feeling Valued without Suggestions: {number}\n")
-        f.write(f"Proportion: {proportion}%\n")
+    try:
+        with open(output_path, 'w') as f:
+            f.write(f"Number of Employees Feeling Valued without Suggestions: {number}\n")
+            f.write(f"Proportion: {proportion:.2f}%\n")
+        print(f"Results written to {output_path}")
+    except Exception as e:
+        print(f"Error writing output: {e}")
 
 def main():
     """
@@ -72,7 +89,7 @@ def main():
     
     # Define file paths
     input_file = "/workspaces/spark-structured-api-employee-engagement-analysis-UmamaheshwarE/input/employee_data.csv"
-    output_file = "/workspaces/Employee_Engagement_Analysis_Spark/outputs/task2/valued_no_suggestions.txt"
+    output_file = "/workspaces/spark-structured-api-employee-engagement-analysis-UmamaheshwarE/Outputs/task2/valued_no_suggestions.txt"
     
     # Load data
     df = load_data(spark, input_file)
@@ -88,3 +105,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
