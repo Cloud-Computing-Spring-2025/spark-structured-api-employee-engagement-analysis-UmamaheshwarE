@@ -25,7 +25,7 @@ def load_data(spark, file_path):
     """
     schema = "EmployeeID INT, Department STRING, JobTitle STRING, SatisfactionRating INT, EngagementLevel STRING, ReportsConcerns BOOLEAN, ProvidedSuggestions BOOLEAN"
     
-    df = spark.read.csv(file_path, header=True, schema=schema)
+    df = spark.read.csv("/workspaces/spark-structured-api-employee-engagement-analysis-UmamaheshwarE/input/employee_data.csv", header=True, schema=schema)
     return df
 
 def identify_valued_no_suggestions(df):
@@ -71,7 +71,7 @@ def main():
     spark = initialize_spark()
     
     # Define file paths
-    input_file = "/workspaces/Employee_Engagement_Analysis_Spark/input/employee_data.csv"
+    input_file = "/workspaces/spark-structured-api-employee-engagement-analysis-UmamaheshwarE/input/employee_data.csv"
     output_file = "/workspaces/Employee_Engagement_Analysis_Spark/outputs/task2/valued_no_suggestions.txt"
     
     # Load data
